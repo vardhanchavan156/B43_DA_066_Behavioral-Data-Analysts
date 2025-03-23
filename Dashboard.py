@@ -14,15 +14,7 @@ df = pd.read_csv(DATASET_PATH)
 # Ensure 'flight_date' is in datetime format
 df['Flight_Date'] = pd.to_datetime(df['Flight_Date'], errors='coerce')
 
-# # Create 'departure_hour' for analysis
-# df['Departure_Hour'] = pd.to_datetime(df['Departure_Time'], format='%H:%M', errors='coerce').dt.hour
-# print(df.head())
-
-
 st.set_page_config(page_title="Dashboard",page_icon="✈",layout="wide")
-#st.subheader("✈ Aviation Analysis")
-# st.markdown("##")
-
 
 st.markdown("""
     <style>
@@ -148,26 +140,7 @@ with st.sidebar:
         st.sidebar.write(f"✅ **July:** {july_range}")
     if 8 in months_available:
         st.sidebar.write(f"✅ **August:** {august_range}")
-#     # Extract minimum and maximum dates from the dataset
-#     min_date = df['Flight_Date'].min().date()
-#     max_date = df['Flight_Date'].max().date()
 
-#     # Display the available date range in the sidebar
-#     st.sidebar.markdown(f"**📆 Available Date Range: {min_date} to {max_date}**")
-
-# # 1️⃣ Date Range Selection (Full Date Format)
-#     date_range = st.sidebar.slider(
-#         "⏳ SELECT DURATION (YYYY-MM-DD):", 
-#         min_value=min_date, 
-#         max_value=max_date, 
-#         value=(min_date, max_date),
-#         format="YYYY-MM-DD"
-#     )
-        
-    # 2️⃣ Month Selection Filter
-    
-    
-    
 
     # Calculate min, max, and median ticket prices
     min_price = int(df['Ticket_Price'].min())
@@ -216,13 +189,8 @@ filtered_df = df[
     (df['Airline_Name'].isin(airlines)) & 
     (df['Num_Stops'].isin(stops)) 
 ]
-    # (df['Flight_Date'].dt.date >= date_range[0]) & 
-    # (df['Flight_Date'].dt.date <= date_range[1]) 
-
-    # (df['Ticket_Price'] >= price_slider[0]) & 
-    # (df['Ticket_Price'] <= price_slider[1])
     
-
+    
 st.title(" ✈️💲Flight Fare Estimator ")
 st.markdown("**Explore flight fare patterns, identify major factors affecting ticket prices, and uncover insights for smarter travel planning.**")
 st.markdown("---")
@@ -417,28 +385,7 @@ with st.container():
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# with st.container():
-#     st.markdown('<div class="centered-container">', unsafe_allow_html=True)
-    
-#     st.markdown("✈️ **AIRLINE Vs. TICKET PRICES**", unsafe_allow_html=True)
-#     fig1 = px.box(
-#         filtered_df, x='Airline_Name', y='Ticket_Price', color='Airline_Name',
-#         color_discrete_sequence=px.colors.sequential.Blues
-#     )
-#     fig1.update_layout(
-#         showlegend=False,
-#         xaxis_title="Airline_Name",
-#         yaxis_title="Ticket_Price",
-#         font=dict(size=14, color="lightblue", family="Arial"),
-#         plot_bgcolor="#121212",
-#         paper_bgcolor="#121212"
-#     )
 
-#     st.plotly_chart(fig1, use_container_width=False)  # Keep `use_container_width=False` for a fixed width
-    
-#     st.markdown('</div>', unsafe_allow_html=True)
-
- 
 # SIDE-BY-SIDE VISUALIZATIONS
 st.subheader("🌍 Sky Trends: 🛫 Flight Frequency & ⏱ Duration Overview")
 col1, col2 = st.columns(2)
@@ -485,20 +432,6 @@ st.markdown(f"""
 - 📆 **Seasonal Trends:** Flight frequency varies by month, with peak months aligning with holidays and vacation seasons.
 """)
 
-
-# with col1:
-#     # Ticket Price Distribution
-#     fig = px.histogram(df, x="Ticket_Price", nbins=20, color_discrete_sequence=["#FF5733"])
-#     fig.update_layout(showlegend=False, xaxis_title="TICKET PRICE", yaxis_title="FREQUENCY")
-#     st.plotly_chart(fig)
-#     st.markdown("**📌 Insight:** Most tickets fall within a specific price range, with some high-end tickets.") 
-# with col2:
-#     # Number of Flights Per Day of the Month
-#     # Number of Flights Per Month
-#     fig = px.histogram(df, x="Date_Month", nbins=5, color_discrete_sequence=["#8A2BE2"])
-#     fig.update_layout(showlegend=False, xaxis_title="MONTH", yaxis_title="FREQUENCY")
-#     st.plotly_chart(fig)
-#     st.markdown("**📌 Insight:** Most flights have moderate durations, but some long-haul flights exist.")
 st.markdown("---")
  
 # SIDE-BY-SIDE VISUALIZATIONS
